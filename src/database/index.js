@@ -2,10 +2,14 @@ import Sequelize from 'sequelize';
 // import mongoose from 'mongoose';
 
 import Usuario from '../app/models/Usuario';
+import Categoria from '../app/models/Categoria';
+import Modulo from '../app/models/Modulo';
+import Tipo from '../app/models/Tipo'
+import Exercicio from '../app/models/Exercicio'
 
 import databaseConfig from '../config/database';
 
-const models = [Usuario];
+const models = [Usuario, Categoria, Modulo, Tipo, Exercicio];
 
 class Database {
   constructor() {
@@ -17,8 +21,10 @@ class Database {
     this.connection = new Sequelize(databaseConfig);
 
     models
-      .map(model => model.init(this.connection))
-      .map(model => model.associate && model.associate(this.connection.models));
+      .map((model) => model.init(this.connection))
+      .map(
+        (model) => model.associate && model.associate(this.connection.models)
+      );
   }
 
   // mongo() {
