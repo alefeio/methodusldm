@@ -86,6 +86,24 @@ class UsuarioController {
       admin,
     });
   }
+
+  async delete(req, res) {
+    if (!req.usuarioAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const usuarioExiste = await Usuario.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (usuarioExiste) {
+      await Usuario.destroy({ where: { id: usuarioExiste.id } });
+
+      return res.json({ msg: 'Operação realizada com sucesso!' });
+    }
+
+    return res.json();
+  }
 }
 
 export default new UsuarioController();

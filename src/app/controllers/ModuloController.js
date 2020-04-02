@@ -8,7 +8,7 @@ class ModuloController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ erro: 'Falha na validação!' })
+      return res.status(400).json({ erro: 'Falha na validação!' });
     }
 
     const { nome } = req.body;
@@ -30,7 +30,7 @@ class ModuloController {
   }
 
   async index(req, res) {
-    const modulos = await Modulo.findAll();
+    const modulos = await Modulo.findAll({ order: ['id'] });
 
     return res.json(modulos);
   }
@@ -56,6 +56,22 @@ class ModuloController {
     }
 
     return res.json({ nome });
+  }
+
+  async delete(req, res) {
+    if (!req.usuarioAdmin) {
+      return res.status(401).json({ erro: 'Operação não realizada!' });
+    }
+
+    const moduloExiste = await Modulo.findOne({ where: { id: req.params.id } });
+
+    if (moduloExiste) {
+      await Modulo.destroy({ where: { id: moduloExiste.id } });
+
+      return res.json({ msg: 'Operação realizada com sucesso!' });
+    }
+
+    return res.json();
   }
 }
 

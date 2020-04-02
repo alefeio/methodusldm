@@ -39,6 +39,14 @@ class ExercicioController {
       return res.status(401).json({ erro: 'Operação não autorizada!' });
     }
 
+    const exercicioExiste = await Exercicio.findOne({
+      where: { questao, subquestao, categoria_id, modulo_id, tipo_id },
+    });
+
+    if (exercicioExiste) {
+      return res.status(400).json({ erro: 'Exercício já existe!' });
+    }
+
     const exercicio = await Exercicio.create({
       questao,
       subquestao,
@@ -64,22 +72,22 @@ class ExercicioController {
         {
           model: Categoria,
           as: 'categoria',
-          attributes: ['nome'],
+          attributes: ['id', 'nome'],
         },
         {
           model: Modulo,
           as: 'modulo',
-          attributes: ['nome'],
+          attributes: ['id', 'nome'],
         },
         {
           model: Tipo,
           as: 'tipo',
-          attributes: ['nome'],
+          attributes: ['id', 'nome'],
         },
         {
           model: Usuario,
           as: 'admin',
-          attributes: ['nome'],
+          attributes: ['id', 'nome'],
         },
       ],
     });
@@ -87,7 +95,21 @@ class ExercicioController {
     return res.json(exercicios);
   }
 
-  async update(req, res) {
+  async delete(req, res) {
+    if (!req.usuarioAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const exercicioExiste = await Exercicio.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (exercicioExiste) {
+      await Exercicio.destroy({ where: { id: exercicioExiste.id } });
+
+      return res.json({ msg: 'Operação realizada com sucesso!' });
+    }
+
     return res.json();
   }
 }

@@ -4,10 +4,10 @@ class CategoriaController {
   async store(req, res) {
     const { nome } = req.body;
 
-    const categoriaExiste = await Categoria.findOne({ where: { nome } })
+    const categoriaExiste = await Categoria.findOne({ where: { nome } });
 
-    if(categoriaExiste) {
-      return res.status(400).json({ erro: 'Categoria já existe!' })
+    if (categoriaExiste) {
+      return res.status(400).json({ erro: 'Categoria já existe!' });
     }
 
     const { id } = await Categoria.create({
@@ -47,6 +47,24 @@ class CategoriaController {
     }
 
     return res.json({ nome });
+  }
+
+  async delete(req, res) {
+    if (!req.usuarioAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const categoriaExiste = await Categoria.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (categoriaExiste) {
+      await Categoria.destroy({ where: { id: categoriaExiste.id } });
+
+      return res.json({ msg: 'Operação realizada com sucesso!' })
+    }
+
+    return res.json();
   }
 }
 

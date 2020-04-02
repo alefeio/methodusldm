@@ -15,7 +15,7 @@ class SessionController {
       return res.status(400).json({ erro: 'Falha na validação!' });
     }
 
-    const { email, cpf, admin, password } = req.body;
+    const { email, cpf, password } = req.body;
 
     const usuario = await Usuario.findOne({ where: { email } });
 
@@ -27,7 +27,7 @@ class SessionController {
       return res.status(401).json({ erro: 'Senha não confere!' });
     }
 
-    const { id, nome } = usuario;
+    const { id, nome, admin } = usuario;
 
     return res.json({
       usuario: {
@@ -37,7 +37,7 @@ class SessionController {
         cpf,
         admin
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, admin }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });

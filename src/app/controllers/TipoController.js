@@ -50,6 +50,22 @@ class TipoController {
       nome,
     });
   }
+
+  async delete(req, res) {
+    if (!req.usuarioAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const tipoExiste = await Tipo.findOne({ where: { id: req.params.id } });
+
+    if (tipoExiste) {
+      await Tipo.destroy({ where: { id: tipoExiste.id } });
+
+      return res.json({ msg: 'Operação realizada com sucesso!' });
+    }
+
+    return res.json();
+  }
 }
 
 export default new TipoController();
