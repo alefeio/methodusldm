@@ -31,11 +31,7 @@ class ExercicioController {
       admin_id,
     } = req.body;
 
-    const isAdmin = await Usuario.findOne({
-      where: { id: admin_id, admin: true },
-    });
-
-    if (!isAdmin) {
+    if (!req.usuarioAdmin) {
       return res.status(401).json({ erro: 'Operação não autorizada!' });
     }
 
@@ -61,10 +57,10 @@ class ExercicioController {
   }
 
   async index(req, res) {
-    const { page = 1, categoria } = req.query;
+    const { page = 1 } = req.query;
 
     const exercicios = await Exercicio.findAll({
-      order: ['created_at'],
+      order: ['categoria_id', 'modulo_id', 'tipo_id', 'id'],
       limit: 20,
       offset: (page - 1) * 20,
       attributes: ['id', 'questao', 'subquestao', 'resposta'],
@@ -72,22 +68,22 @@ class ExercicioController {
         {
           model: Categoria,
           as: 'categoria',
-          attributes: ['id', 'nome'],
+          attributes: ['nome'],
         },
         {
           model: Modulo,
           as: 'modulo',
-          attributes: ['id', 'nome'],
+          attributes: ['nome'],
         },
         {
           model: Tipo,
           as: 'tipo',
-          attributes: ['id', 'nome'],
+          attributes: ['nome'],
         },
         {
           model: Usuario,
           as: 'admin',
-          attributes: ['id', 'nome'],
+          attributes: ['nome'],
         },
       ],
     });
@@ -95,20 +91,34 @@ class ExercicioController {
     return res.json(exercicios);
   }
 
+  async update(req, res) {
+    if (!req.usuarioAdmin) {
+      return res.status(401).json({ erro: 'Operação não autorizada!' });
+    }
+
+    const exercicio = await Exercicio.findByPk(req.params.id);
+
+    if (!exercicio) {
+      return res.status(400).json({ erro: 'Exercício não existe!' });
+    }
+
+    await exercicio.update(req.body);
+
+    return res.json(exercicio);
+  }
+
   async delete(req, res) {
     if (!req.usuarioAdmin) {
       return res.status(401).json({ erro: 'Operação não autorizada!' });
     }
 
-    const exercicioExiste = await Exercicio.findOne({
-      where: { id: req.params.id },
-    });
+    const exercicioExiste = await Exercicio.findByPk(req.params.id);
 
-    if (exercicioExiste) {
-      await Exercicio.destroy({ where: { id: exercicioExiste.id } });
-
-      return res.json({ msg: 'Operação realizada com sucesso!' });
+    if (!exercicioExiste) {
+      return res.status(400).json({ erro: 'Exercício não existe!' });
     }
+
+    await Exercicio.destroy({ where: { id: exercicioExiste.id } });
 
     return res.json();
   }

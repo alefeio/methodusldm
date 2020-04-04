@@ -4,12 +4,14 @@ import Sequelize from 'sequelize';
 import Usuario from '../app/models/Usuario';
 import Categoria from '../app/models/Categoria';
 import Modulo from '../app/models/Modulo';
-import Tipo from '../app/models/Tipo'
-import Exercicio from '../app/models/Exercicio'
+import Tipo from '../app/models/Tipo';
+import Exercicio from '../app/models/Exercicio';
+import Prova from '../app/models/Prova';
+import Resposta from '../app/models/Resposta';
 
 import databaseConfig from '../config/database';
 
-const models = [Usuario, Categoria, Modulo, Tipo, Exercicio];
+const models = [Usuario, Categoria, Modulo, Tipo, Exercicio, Prova, Resposta];
 
 class Database {
   constructor() {

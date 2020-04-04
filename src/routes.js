@@ -9,6 +9,9 @@ import TipoController from './app/controllers/TipoController';
 import AdminController from './app/controllers/AdminController';
 import ExercicioController from './app/controllers/ExercicioController';
 import ExerciciosporcategoriaController from './app/controllers/ExercicioporcategoriaController';
+import RespostaController from './app/controllers/RespostaController';
+import ProvaController from './app/controllers/ProvaController';
+import ProvaalunoController from './app/controllers/ProvaalunoController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -42,8 +45,20 @@ routes.delete('/tipos/:id', TipoController.delete);
 
 routes.get('/exercicios', ExercicioController.index);
 routes.post('/exercicios', ExercicioController.store);
+routes.put('/exercicios/:id', ExercicioController.update);
 routes.delete('/exercicios/:id', ExercicioController.delete);
 
 routes.get('/exerciciosporcategoria', ExerciciosporcategoriaController.index);
+
+routes.get('/resposta', RespostaController.index);
+routes.post('/resposta', RespostaController.store);
+routes.put('/resposta/:id', RespostaController.update);
+
+routes.get('/provas', ProvaController.index);
+
+routes.get('/provasaluno', ProvaalunoController.index);
+routes.post('/provasaluno', ProvaalunoController.store);
+routes.put('/provasaluno/:id', ProvaalunoController.update);
+routes.delete('/provasaluno/:id', ProvaalunoController.delete);
 
 export default routes;
