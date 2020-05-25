@@ -51,10 +51,14 @@ routes.delete('/exercicios/:id', ExercicioController.delete);
 routes.get('/exerciciosporcategoria', ExerciciosporcategoriaController.index);
 
 routes.get('/resposta', RespostaController.index);
+routes.get('/respostaid', RespostaController.detail);
+routes.get('/respostaprova', RespostaController.respostasProva);
 routes.post('/resposta', RespostaController.store);
 routes.put('/resposta/:id', RespostaController.update);
 
 routes.get('/provas', ProvaController.index);
+routes.get('/provasfinalizadas', ProvaController.finalizadas);
+routes.post('/provas', ProvaController.create);
 
 routes.get('/provasaluno', ProvaalunoController.index);
 routes.post('/provasaluno', ProvaalunoController.store);

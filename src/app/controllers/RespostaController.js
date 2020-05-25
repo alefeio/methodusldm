@@ -19,9 +19,9 @@ class RespostaController {
       return res.status(400).json({ erro: 'Falha na validação!' });
     }
 
-    if (req.usuarioAdmin) {
-      return res.status(401).json({ erro: 'Operação não autorizada!' });
-    }
+    // if (req.usuarioAdmin) {
+    //   return res.status(401).json({ erro: 'Operação não autorizada!' });
+    // }
 
     const { resposta, prova_id, exercicio_id } = req.body;
 
@@ -121,7 +121,7 @@ class RespostaController {
         {
           model: Exercicio,
           as: 'exercicio',
-          attributes: ['questao', 'subquestao', 'resposta'],
+          attributes: ['id', 'questao', 'subquestao', 'resposta'],
           include: [
             {
               model: Categoria,
@@ -141,6 +141,26 @@ class RespostaController {
           ],
         },
       ],
+    });
+
+    return res.json(respostas);
+  }
+
+  async detail(req, res) {
+    const { prova_id, exercicio_id } = req.query;
+
+    const respostas = await Resposta.findOne({
+      where: { prova_id, exercicio_id },
+    });
+
+    return res.json(respostas);
+  }
+
+  async respostasProva(req, res) {
+    const { prova_id } = req.query;
+
+    const respostas = await Resposta.findAll({
+      where: { prova_id },
     });
 
     return res.json(respostas);

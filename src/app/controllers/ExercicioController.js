@@ -13,7 +13,7 @@ class ExercicioController {
       resposta: Yup.number().required(),
       categoria_id: Yup.number().required(),
       modulo_id: Yup.number().required(),
-      tipo_id: Yup.number().required(),
+      tipo_id: Yup.number(),
       admin_id: Yup.number().required(),
     });
 
@@ -27,7 +27,7 @@ class ExercicioController {
       resposta,
       categoria_id,
       modulo_id,
-      tipo_id,
+      tipo_id = null,
       admin_id,
     } = req.body;
 
@@ -61,8 +61,8 @@ class ExercicioController {
 
     const exercicios = await Exercicio.findAll({
       order: ['categoria_id', 'modulo_id', 'tipo_id', 'id'],
-      limit: 20,
-      offset: (page - 1) * 20,
+      limit: 100,
+      offset: (page - 1) * 100,
       attributes: ['id', 'questao', 'subquestao', 'resposta'],
       include: [
         {
@@ -80,11 +80,11 @@ class ExercicioController {
           as: 'tipo',
           attributes: ['nome'],
         },
-        {
-          model: Usuario,
-          as: 'admin',
-          attributes: ['nome'],
-        },
+        // {
+        //   model: Usuario,
+        //   as: 'admin',
+        //   attributes: ['nome'],
+        // },
       ],
     });
 
