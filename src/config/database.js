@@ -2,7 +2,8 @@
 
 module.exports = {
   dialect: 'postgres',
-  host: '192.168.99.100',
+  host: '157.245.215.207',
+  // host: '192.168.99.100',
   username: 'postgres',
   password: '301159',
   database: 'methodusldm',
