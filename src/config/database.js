@@ -5,7 +5,7 @@ module.exports = {
   host: 'localhost',
   username: 'postgres',
   password: '301159',
-  database: 'methodusldm',
+  database: 'methodusldm2',
   // host: process.env.BD_HOST,
   // username: process.env.DB_USER,
   // password: process.env.DB_PASS,
