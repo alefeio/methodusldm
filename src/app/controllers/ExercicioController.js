@@ -91,6 +91,40 @@ class ExercicioController {
     return res.json(exercicios);
   }
 
+  async detail(req, res) {
+    const { page = 1 } = req.query;
+
+    const id = req.params.id;
+
+    const exercicios = await Exercicio.findOne({
+      where: { id },
+      include: [
+        {
+          model: Categoria,
+          as: 'categoria',
+          attributes: ['nome'],
+        },
+        {
+          model: Modulo,
+          as: 'modulo',
+          attributes: ['nome'],
+        },
+        {
+          model: Tipo,
+          as: 'tipo',
+          attributes: ['nome'],
+        },
+        // {
+        //   model: Usuario,
+        //   as: 'admin',
+        //   attributes: ['nome'],
+        // },
+      ],
+    });
+
+    return res.json(exercicios);
+  }
+
   async update(req, res) {
     if (!req.usuarioAdmin) {
       return res.status(401).json({ erro: 'Operação não autorizada!' });

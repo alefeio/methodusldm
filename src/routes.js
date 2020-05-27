@@ -46,6 +46,7 @@ routes.put('/tipos/:id', TipoController.update);
 routes.delete('/tipos/:id', TipoController.delete);
 
 routes.get('/exercicios', ExercicioController.index);
+routes.get('/exercicios/:id', ExercicioController.detail);
 routes.post('/exercicios', ExercicioController.store);
 routes.put('/exercicios/:id', ExercicioController.update);
 routes.delete('/exercicios/:id', ExercicioController.delete);
