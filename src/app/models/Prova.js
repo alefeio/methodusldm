@@ -6,6 +6,17 @@ class Prova extends Model {
       {
         nota: Sequelize.INTEGER,
         finalizada: Sequelize.BOOLEAN,
+        monitor01: Sequelize.INTEGER,
+        monitor02: Sequelize.INTEGER,
+        monitor03: Sequelize.INTEGER,
+        monitor04: Sequelize.INTEGER,
+        monitor05: Sequelize.INTEGER,
+        monitor06: Sequelize.INTEGER,
+        monitor07: Sequelize.INTEGER,
+        monitor08: Sequelize.INTEGER,
+        percepcao01: Sequelize.INTEGER,
+        percepcao02: Sequelize.INTEGER,
+        percepcao03: Sequelize.INTEGER,
       },
       {
         sequelize,
