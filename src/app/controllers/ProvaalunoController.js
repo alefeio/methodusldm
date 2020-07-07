@@ -81,11 +81,11 @@ class ProvaalunoController {
   }
 
   async delete(req, res) {
-    if (req.usuarioAdmin) {
-      return res
-        .status(401)
-        .json({ erro: 'Operação não autorizada para admin!' });
-    }
+    // if (req.usuarioAdmin) {
+    //   return res
+    //     .status(401)
+    //     .json({ erro: 'Operação não autorizada para admin!' });
+    // }
 
     const prova = await Prova.findByPk(req.params.id);
 
