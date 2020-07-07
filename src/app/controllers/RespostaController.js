@@ -154,6 +154,13 @@ class RespostaController {
         tipo_id === 1
       )
         provaExiste.monitor08 = provaExiste.monitor08 + novanotaespecifica;
+      if (
+        questao === 9 &&
+        categoria_id === 1 &&
+        modulo_id === 1 &&
+        tipo_id === 1
+      )
+        provaExiste.monitor09 = provaExiste.monitor09 + novanotaespecifica;
 
       if (questao === 1 && categoria_id === 1 && modulo_id === 2)
         provaExiste.percepcao01 = provaExiste.percepcao01 + novanotaespecifica;
@@ -172,6 +179,7 @@ class RespostaController {
         monitor06: provaExiste.monitor06,
         monitor07: provaExiste.monitor07,
         monitor08: provaExiste.monitor08,
+        monitor09: provaExiste.monitor09,
         percepcao01: provaExiste.percepcao01,
         percepcao02: provaExiste.percepcao02,
         percepcao03: provaExiste.percepcao03,
