@@ -21,7 +21,7 @@ routes.post('/usuarios', UsuarioController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/', (req, res) =>
-  res.send('Methodus Leitura Dinâmica e Memorização')
+  res.send('Ok')
 );
 
 routes.use(authMiddleware);
