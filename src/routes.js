@@ -24,13 +24,13 @@ routes.get('/', (req, res) =>
   res.send('Methodus Leitura Dinâmica e Memorização')
 );
 
+routes.get('/admins', AdminController.index);
+routes.get('/alunos', AlunoController.index);
+
 routes.use(authMiddleware);
 
 routes.put('/usuarios', UsuarioController.update);
 routes.delete('/usuarios/:id', UsuarioController.delete);
-
-routes.get('/admins', AdminController.index);
-routes.get('/alunos', AlunoController.index);
 
 routes.get('/categorias', CategoriaController.index);
 routes.post('/categorias', CategoriaController.store);
