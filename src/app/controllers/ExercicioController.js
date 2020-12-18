@@ -62,7 +62,7 @@ class ExercicioController {
     const exercicios = await Exercicio.findAll({
       order: ['id'],
       limit: 100,
-      offset: (page - 1) * 20,
+      offset: (page - 1) * 100,
     });
 
     return res.json(exercicios);
