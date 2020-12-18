@@ -59,7 +59,11 @@ class ExercicioController {
   async index(req, res) {
     // const { page = 1 } = req.query;
 
-    const exercicios = await Exercicio.findAll();
+    const exercicios = await Exercicio.findAll({
+      order: ['created_at'],
+      limit: 20,
+      offset: (page - 1) * 20,
+    });
 
     return res.json(exercicios);
   }
