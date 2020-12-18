@@ -61,7 +61,7 @@ class ExercicioController {
 
     const exercicios = await Exercicio.findAll({
       order: ['created_at'],
-      limit: 20,
+      limit: 100,
       offset: (page - 1) * 20,
     });
 
