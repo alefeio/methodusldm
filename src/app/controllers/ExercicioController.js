@@ -57,7 +57,7 @@ class ExercicioController {
   }
 
   async index(req, res) {
-    // const { page = 1 } = req.query;
+    const { page = 1 } = req.query;
 
     const exercicios = await Exercicio.findAll({
       order: ['created_at'],
