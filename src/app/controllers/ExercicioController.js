@@ -60,7 +60,7 @@ class ExercicioController {
     const { page = 1 } = req.query;
 
     const exercicios = await Exercicio.findAll({
-      order: ['created_at'],
+      order: ['id'],
       limit: 100,
       offset: (page - 1) * 20,
     });
