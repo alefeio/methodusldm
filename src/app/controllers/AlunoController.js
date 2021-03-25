@@ -5,7 +5,7 @@ class AlunoController {
     const usuarios = await Usuario.findAll({
       where: { admin: false },
       order: [['updated_at', 'DESC']],
-      attributes: ['id', 'nome', 'email', 'cpf'],
+      attributes: ['id', 'nome', 'email', 'cpf', 'created_at'],
     });
 
     return res.json(usuarios);
