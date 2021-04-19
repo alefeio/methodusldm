@@ -2,15 +2,16 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('exercicios', 'descricao', {
-      type: Sequelize.STRING,
+    return queryInterface.addColumn('prova2s_id', 'resposta', {
+      type: Sequelize.INTEGER,
+      references: { model: 'provas2s', key: 'id' },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
-      allowNull: true,
+      allowNull: false,
     });
   },
 
   down: (queryInterface) => {
-    return queryInterface.removeColumn('exercicios', 'descricao');
+    return queryInterface.removeColumn('prova2s_id', 'resposta');
   },
 };

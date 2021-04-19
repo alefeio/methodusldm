@@ -60,32 +60,9 @@ class ExercicioController {
     const { page = 1 } = req.query;
 
     const exercicios = await Exercicio.findAll({
-      order: ['categoria_id', 'modulo_id', 'tipo_id', 'id'],
+      order: ['id'],
       limit: 100,
       offset: (page - 1) * 100,
-      attributes: ['id', 'questao', 'subquestao', 'resposta'],
-      include: [
-        {
-          model: Categoria,
-          as: 'categoria',
-          attributes: ['nome'],
-        },
-        {
-          model: Modulo,
-          as: 'modulo',
-          attributes: ['nome'],
-        },
-        {
-          model: Tipo,
-          as: 'tipo',
-          attributes: ['nome'],
-        },
-        // {
-        //   model: Usuario,
-        //   as: 'admin',
-        //   attributes: ['nome'],
-        // },
-      ],
     });
 
     return res.json(exercicios);
