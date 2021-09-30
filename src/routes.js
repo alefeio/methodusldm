@@ -30,7 +30,8 @@ routes.get('/alunos', AlunoController.index);
 routes.use(authMiddleware);
 
 routes.put('/usuarios', UsuarioController.update);
-routes.delete('/usuarios/:id', UsuarioController.delete);
+routes.put('/usuariosdel/:id', UsuarioController.delete);
+// routes.delete('/usuarios/:id', UsuarioController.delete);
 
 routes.get('/categorias', CategoriaController.index);
 routes.post('/categorias', CategoriaController.store);

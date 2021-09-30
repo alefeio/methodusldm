@@ -87,17 +87,34 @@ class UsuarioController {
     });
   }
 
+  // async delete(req, res) {
+  //   if (!req.usuarioAdmin) {
+  //     return res.status(401).json({ erro: 'Operação não autorizada!' });
+  //   }
+
+  //   const usuarioExiste = await Usuario.findOne({
+  //     where: { id: req.params.id },
+  //   });
+
+  //   if (usuarioExiste) {
+  //     await Usuario.destroy({ where: { id: usuarioExiste.id } });
+
+  //     return res.json({ msg: 'Operação realizada com sucesso!' });
+  //   }
+
+  //   return res.json();
+  // }
+
   async delete(req, res) {
     if (!req.usuarioAdmin) {
       return res.status(401).json({ erro: 'Operação não autorizada!' });
     }
 
-    const usuarioExiste = await Usuario.findOne({
-      where: { id: req.params.id },
-    });
+    const usuarioExiste = await Usuario.findByPk(req.params.id);
 
     if (usuarioExiste) {
-      await Usuario.destroy({ where: { id: usuarioExiste.id } });
+      
+      await usuarioExiste.update({ ativo: false });
 
       return res.json({ msg: 'Operação realizada com sucesso!' });
     }
